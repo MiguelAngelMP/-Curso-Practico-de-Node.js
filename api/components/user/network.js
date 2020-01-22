@@ -36,7 +36,6 @@ function upsert(req, res) {
 
     Controller.upsert(req.body)
         .then((user) => {
-            console.log(user);
             response.success(req, res, user, 201);
         }).catch((err) => {
             response.error(req, res, err, 500);
