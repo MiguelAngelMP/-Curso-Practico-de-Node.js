@@ -1,11 +1,13 @@
 const express = require('express');
-const bodyParse = require('body-parser');
+const bodyParser = require('body-parser');
 
 const swaggerUi = require('swagger-ui-express');
 const config = require('../config.js');
 const user = require('./components/user/network');
 
 const app = express();
+app.use(bodyParser.json());
+
 
 const swaggerDoc = require('./swagger.json');
 // ROUER

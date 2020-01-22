@@ -15,7 +15,7 @@ router.put('/', upsert);
 
 //internal functions
 
-const list = (req, res) => {
+function list(req, res) {
     Controller.list()
         .then((lista) => {
             response.success(req, res, lista, 200);
@@ -25,19 +25,23 @@ const list = (req, res) => {
 }
 
 function get(req, res) {
-    Controller.get(req.params.id).then((user) => {
-        response.success(req, res, user, 200);
-    }).catch((err) => {
-        response.error(req, res, err.menssage, 400);
-    });
+    Controller.get(req.params.id)
+        .then((user) => {
+            response.success(req, res, user, 200);
+        }).catch((err) => {
+            response.error(req, res, err.menssage, 400);
+        });
 }
 
 function upsert(req, res) {
-    Controller.upsert(req.body).then((user) => {
-        response.success(req, res, user, 201);
-    }).catch((err) => {
-        response.error(req, res, err.menssage, 500);
-    });
+
+    Controller.upsert(req.body)
+        .then((user) => {
+            console.log(user);
+            response.success(req, res, user, 201);
+        }).catch((err) => {
+            response.error(req, res, err, 500);
+        });
 }
 
 module.exports = router;
