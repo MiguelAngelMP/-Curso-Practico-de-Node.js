@@ -1,7 +1,7 @@
 const db = {
     'user': [{
-        id: '1',
-        name: 'Miguel'
+        id: '3',
+        name: 'Miguel uno'
     }, {
         id: '2',
         name: 'Angel'
@@ -22,7 +22,7 @@ async function upsert(tabla, data) {
         db[tabla] = [tabla];
     }
     db[tabla].push(data);
-    console.log(db);
+    //console.log(db);
 }
 
 async function remove(tabla, id) {

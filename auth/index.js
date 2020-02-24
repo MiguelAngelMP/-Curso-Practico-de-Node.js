@@ -1,39 +1,41 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config')
+const config = require('../config');
+
 const secret = config.jwt.secret;
 
 function sign(data) {
-    return jwt.sign(data, secret)
+    return jwt.sign(data, secret);
 }
 
-function verify(params) {
-    return jwt.verify(data, secret)
+function verify(token) {
+    return jwt.verify(token, secret)
 }
 
-const chect = {
-    own: function (req, owne) {
-        const decoded = decodedHeader(req)
-        console.log(decoded)
+const check = {
+    own: function (req, owner) {
+        const decoded = decodeHeader(req);
+        console.log(decoded);
+
+        if (decoded.id !== owner) {
+            throw new Error('No puedes hacer esto');
+        }
     },
-
-
-
 }
 
 function getToken(auth) {
     if (!auth) {
-        throw new Error('No vine token')
+        throw new Error('No viene token');
     }
 
     if (auth.indexOf('Bearer ') === -1) {
-        throw new Error('Formato invalido ')
+        throw new Error('Formato invalido');
     }
-    let token = auth.replace('Bearer', '');
-    return token;
 
+    let token = auth.replace('Bearer ', '');
+    return token;
 }
 
-function decodedHeader(req) {
+function decodeHeader(req) {
     const authorization = req.headers.authorization || '';
     const token = getToken(authorization);
     const decoded = verify(token);
@@ -42,6 +44,8 @@ function decodedHeader(req) {
 
     return decoded;
 }
+
 module.exports = {
-    sign
+    sign,
+    check,
 };
